@@ -51,7 +51,7 @@ Following are the cases when refs should be used:
 - To trigger imperative animations
 - Integrate with third-party DOM libraries
 
-## HOC
+## HOC component
 
 Just think about it, it receive a component and return another component like this:
  ```javascript
@@ -69,3 +69,14 @@ const higherOrderComponent = (WrappedComponent) => {
   return HOC;
 };
 ```
+
+## Pure component
+
+# Redux concepts
+
+## 3 principles
+
+1. Single source of truth: State is stored in a tree within a store.
+2. State is read-only: The only way to change the state is to trigger an action.
+3. Changes are made with pure functions
+
