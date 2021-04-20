@@ -22,3 +22,50 @@ This Virtual DOM works in three simple steps.
 ## JSX
 
 JSX is a shorthand for JavaScript XML. This is a type of file used by React which utilizes the expressiveness of JavaScript along with HTML like template syntax. This makes the HTML file really easy to understand. This file makes applications robust and boosts its performance.
+
+Browsers can only read JavaScript objects but JSX in not a regular JavaScript object. Thus to enable a browser to read JSX, first, we need to transform JSX file into a JavaScript object using JSX transformers like Babel and then pass it to the browser.
+
+## Props
+
+Props is the shorthand for Properties in React. They are read-only components which must be kept pure i.e. immutable. They are always passed down from the parent to the child components throughout the application. A child component can never send a prop back to the parent component.
+
+## State
+
+States are the source of data and must be kept as simple as possible. Basically, states are the objects which determine components rendering and behavior. They are mutable unlike the props and create dynamic and interactive components. They are accessed via this.state().
+
+## Life cycle
+
+There are three different phases of React component’s lifecycle:
+
+- Initial Rendering Phase: This is the phase when the component is about to start its life journey and make its way to the DOM.
+- Updating Phase: Once the component gets added to the DOM, it can potentially update and re-render only when a prop or state change occurs. That happens only in this phase.
+- Unmounting Phase: This is the final phase of a component’s life cycle in which the component is destroyed and removed from the DOM.
+
+![image](/image/lifecycle.png)
+
+## Refs
+
+Following are the cases when refs should be used:
+
+- When you need to manage focus, select text or media playback
+- To trigger imperative animations
+- Integrate with third-party DOM libraries
+
+## HOC
+
+Just think about it, it receive a component and return another component like this:
+ ```javascript
+ const secondComponent = HOCComponent(firstComponent)
+ ```
+
+ ```javascript
+ import React from 'react';
+const higherOrderComponent = (WrappedComponent) => {
+  class HOC extends React.Component {
+    render() {
+      return <WrappedComponent />;
+    }
+  }
+  return HOC;
+};
+```
