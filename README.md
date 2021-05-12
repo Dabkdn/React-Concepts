@@ -2,22 +2,22 @@
 
 ## DOM and Virtual DOM
 
-| DOM  | Virtual DOM |
-| ------------- | ------------- |
-| It updates slow.  | It updates faster.  |
-| Can directly update HTML.  | Can’t directly update HTML.  |
-| Creates a new DOM if element updates. |  Updates the JSX if element updates. |
-| Too much of memory wastage. | No memory wastage. |
+| DOM                                   | Virtual DOM                         |
+| ------------------------------------- | ----------------------------------- |
+| It updates slow.                      | It updates faster.                  |
+| Can directly update HTML.             | Can’t directly update HTML.         |
+| Creates a new DOM if element updates. | Updates the JSX if element updates. |
+| Too much of memory wastage.           | No memory wastage.                  |
 
 A virtual DOM is a lightweight JavaScript object which originally is just the copy of the real DOM. It is a node tree that lists the elements, their attributes and content as Objects and their properties. React’s render function creates a node tree out of the React components.
 This Virtual DOM works in three simple steps.
 
 - Whenever any underlying data changes, the entire UI is re-rendered in Virtual DOM representation.
-![image](/image/virtual_dom_1.png)
+  ![image](/image/virtual_dom_1.png)
 - Then the difference between the previous DOM representation and the new one is calculated.
-![image](/image/virtual_dom_2.png)
-- Once the calculations are done, the real DOM will be updated with only the things that have actually changed. 
-![image](/image/virtual_dom_3.png)
+  ![image](/image/virtual_dom_2.png)
+- Once the calculations are done, the real DOM will be updated with only the things that have actually changed.
+  ![image](/image/virtual_dom_3.png)
 
 ## JSX
 
@@ -51,15 +51,70 @@ Following are the cases when refs should be used:
 - To trigger imperative animations
 - Integrate with third-party DOM libraries
 
+```javascript
+// EmailInput wraps an HTML `input` and adds some app-specific styling.
+const EmailInput = React.forwardRef((props, ref) => (
+  <input ref={ref} {...props} type="email" className="AppEmailInput" />
+));
+
+class App extends Component {
+  emailRef = React.createRef();
+
+  render() {
+    return (
+      <div>
+        <EmailInput ref={this.emailRef} />
+        <button onClick={() => this.onClickButton()}>
+          Click me to focus email
+        </button>
+      </div>
+    );
+  }
+
+  // `this.emailRef.current` points to the `input` component inside of EmailInput,
+  // because EmailInput is forwarding its ref via the `React.forwardRef` callback.
+  onClickButton() {
+    this.emailRef.current.focus();
+  }
+}
+```
+
+```javascript
+const slider = useRef < any > null;
+const back = () => {
+  slider.current.slickPrev();
+  console.log(slider.current);
+};
+const next = () => {
+  slider.current.slickNext();
+};
+
+
+<Slide slideRef={slider}>
+
+
+button onclick
+
+Slide: React.FC<Props> = forwardRef(({ children, slideRef }) => {
+
+  return (
+    <Slider {...settings} ref={slideRef}>
+      {children}{" "}
+    </Slider>
+  )
+})
+```
+
 ## HOC component
 
 Just think about it, it receive a component and return another component like this:
- ```javascript
- const secondComponent = HOCComponent(firstComponent)
- ```
 
- ```javascript
- import React from 'react';
+```javascript
+const secondComponent = HOCComponent(firstComponent);
+```
+
+```javascript
+import React from "react";
 const higherOrderComponent = (WrappedComponent) => {
   class HOC extends React.Component {
     render() {
@@ -79,4 +134,3 @@ const higherOrderComponent = (WrappedComponent) => {
 1. Single source of truth: State is stored in a tree within a store.
 2. State is read-only: The only way to change the state is to trigger an action.
 3. Changes are made with pure functions
-
